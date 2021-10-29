@@ -27,10 +27,10 @@ public class UserResource {
             return repository.findAll();
         }
 
-        @GetMapping("{id}")
-        public User user(@PathVariable int id) throws Exception{  
+        @GetMapping("{email}/{senha}")
+        public User user(@PathVariable String email,@PathVariable String senha) throws Exception{  
             User user; 
-            user = repository.findById(id).orElseThrow(() -> new Exception());
+            user = repository.findByEmailAndSenha(email, senha);
 
             return user;
         }
@@ -38,17 +38,7 @@ public class UserResource {
         @PostMapping("save")
         public User save(@RequestBody User user){
             User createdUser = repository.save(user);
-            return createdUser; 
-        }
-
-        @PatchMapping("update")
-        public User updateUser(@RequestBody User updatedUser) throws Exception{
-            User returnUser = repository.findById(updatedUser.getId())
-                   .map(user -> {
-                        user.setNome(updatedUser.getNome());
-                        user.setEmail(updatedUser.getEmail());
-                        return repository.save(user);
-                   }).orElseThrow(() -> new Exception());
+            User returnUser = repository.findByEmailAndSenha(createdUser.getEmail(), createdUser.getSenha());
             return returnUser; 
         }
 
