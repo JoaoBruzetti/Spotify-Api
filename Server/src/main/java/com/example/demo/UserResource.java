@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import org.hibernate.jdbc.Expectations;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "https://localhost:3000")
 @RequestMapping("users")
 public class UserResource {
 
@@ -27,8 +29,8 @@ public class UserResource {
             return repository.findAll();
         }
 
-        @GetMapping("{email}/{senha}")
-        public User user(@PathVariable String email,@PathVariable String senha) throws Exception{  
+        @GetMapping("/acess")
+        public User user(@RequestBody String email,@RequestBody String senha){  
             User user; 
             user = repository.findByEmailAndSenha(email, senha);
 
