@@ -13,8 +13,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function RegisterForm(){
+function LoginForm(){
     const classes = useStyles();
+
     return (
       <Grid
         container
@@ -26,8 +27,22 @@ function RegisterForm(){
       >
         <Typography variant="h3" align="center">Searchfy</Typography> <br/><br/>
           <form> 
-            <TextField className={classes.root} id="email" label="Email" variant="filled" margin="normal" fullWidth/>
-            <TextField className={classes.root} id="senha" label="Senha" type="password" variant="filled" margin="normal" fullWidth/>
+            <TextField 
+              className={classes.root} 
+              id="email" 
+              label="Email" 
+              variant="filled" 
+              margin="normal" 
+              fullWidth/>
+
+            <TextField 
+            className={classes.root} 
+              id="senha" 
+              label="Senha" 
+              type="password" 
+              variant="filled" 
+              margin="normal" fullWidth/>
+
             <br/> <br/>
             <Box display="flex" justifyContent="space-between">
             <Button type="submit" variant="contained" color="primary">Entrar</Button>
@@ -38,4 +53,4 @@ function RegisterForm(){
     )
 }
 
-export default RegisterForm
+export default LoginForm;

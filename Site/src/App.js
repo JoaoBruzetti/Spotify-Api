@@ -1,14 +1,15 @@
 import './App.css';
-import LoginForm from './components/LoginForm/LoginForm.jsx'
 import { ThemeProvider } from '@material-ui/styles';
 import { theme } from './theme';
-import { Container, Typography } from '@material-ui/core';
+import { Container } from '@material-ui/core';
+import RegisterForm from './components/RegisterForm/RegisterForm';
+
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Container component="article" maxWidth="sm">
-        <LoginForm />
+        <RegisterForm />
       </Container>
     </ThemeProvider>
   );
