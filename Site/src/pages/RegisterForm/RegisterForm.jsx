@@ -4,9 +4,11 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, Box, Typography, Grid } from '@material-ui/core';
+import {Link} from 'react-router-dom';
 
-import API_URL from '../../services/UserService';
 
+import api from '../../services/api';
+ 
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiFilledInput-root": {
@@ -22,15 +24,15 @@ function RegisterForm(){
     const [email, setEmail] = useState ("");
     const [telefone, setTelefone] = useState ("");
     const [senha, setSenha] = useState ("");
-
+ 
     async function handleSubmit(){
-      await axios.post(API_URL, {
+      await api.post('users/save', {
         nome: nome,
         email: email,
         telefone: telefone,
         senha: senha
       })
-      .then(result => {})
+      .then(result => console.log(result))
       .catch(erro => console.log(erro))
     }
 
@@ -45,7 +47,7 @@ function RegisterForm(){
       >
 
         <Typography variant="h3" align="center">Crie sua Conta</Typography> <br/><br/>
-          <form onSubmit={()=> handleSubmit }> 
+          <form > 
 
             <TextField 
               value={nome}
@@ -98,8 +100,8 @@ function RegisterForm(){
 
             <br/> <br/>
             <Box display="flex" justifyContent="space-between">
-            <Button type="submit" variant="contained" color="primary">Criar Conta</Button>
-            <Button type="submit" variant="contained" color="primary">Voltar</Button>
+            <Button component={Link} to={'/login'} onClick={() => handleSubmit()} variant="contained" color="primary">Criar Conta</Button>
+            <Button component={Link} to={'/login'} type="submit" variant="contained" color="primary">Voltar</Button>
             </Box>
          </form>
     </Grid>

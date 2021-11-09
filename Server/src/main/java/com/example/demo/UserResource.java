@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "https://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("users")
 public class UserResource {
 
@@ -29,11 +29,11 @@ public class UserResource {
             return repository.findAll();
         }
 
-        @GetMapping("/acess")
-        public User user(@RequestBody String email,@RequestBody String senha){  
+        @PostMapping("/acess")
+        public User user(@RequestBody User usuario ){  
+            System.out.println(usuario.getSenha());
             User user; 
-            user = repository.findByEmailAndSenha(email, senha);
-
+            user = repository.findByEmailAndSenha(usuario.getEmail(), usuario.getSenha());
             return user;
         }
 
