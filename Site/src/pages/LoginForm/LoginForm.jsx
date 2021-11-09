@@ -21,7 +21,7 @@ function LoginForm(){
     const [senha, setSenha] = useState ("");
 
     async function handleLogin(){
-      await api.post('users/acess', {
+      await api.post('users/access', {
         email: email,
         senha: senha
       })

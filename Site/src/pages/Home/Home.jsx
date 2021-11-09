@@ -27,7 +27,6 @@ function Home(){
     const [token, setToken] = useState('');  
     const client_id = 'e9fbd2df63c94ea68644daac5783b7d5';
     const client_secret = '3c635278395d46fe89d747c0a160d68b';
-    const [change, setChange] = useState(true); 
     const [pesquisa, setPesquisa] = useState ("");
     const [musicas, setMusicas] = useState([]);
 
@@ -43,7 +42,7 @@ function Home(){
       .then(tokenResponse => {      
         setToken(tokenResponse.data.access_token);
   
-        axios(`https://api.spotify.com/v1/search?q=${pesquisa.replace(' ', '+')}&type=track&limit=5`, {
+        axios(`https://api.spotify.com/v1/search?q=${pesquisa.replace(' ', '+')}&type=track&limit=10`, {
           method: 'GET',
           headers: { 
               'Authorization' : 'Bearer ' + tokenResponse.data.access_token,
@@ -67,7 +66,9 @@ function Home(){
         //justifyContent="center"
         style={{ minHeight: '100vh' }}
       >
+
         <Typography variant="h3" align="center">Searchfy</Typography> <br/><br/>
+        
 
         <Paper
             component="form"
@@ -98,7 +99,20 @@ function Home(){
             </Paper>
 
         { musicas && musicas.map(musica => (
-              <><p>{musica.name}</p><p>{musica.album.name}</p></>
+              <div class="card">
+                
+              <p>{musica.name}</p>
+              <p>{musica.album.name}</p>
+
+              <a href={musica.external_urls.spotify} >
+              <img 
+              src={musica.album.images[0].url}
+              width= '200rem'
+              />
+               </a>
+               
+              </div>
+
             ))}
         
     </Grid>
