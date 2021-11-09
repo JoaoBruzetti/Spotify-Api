@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -29,25 +30,29 @@ public class UserResource {
             return repository.findAll();
         }
 
-        @PostMapping("/acess")
+        @PostMapping("/access")
         public User user(@RequestBody User usuario ){  
-            System.out.println(usuario.getSenha());
+            usuario.setSenha(Base64.getEncoder().encodeToString(usuario.getSenha().getBytes()));
             User user; 
             user = repository.findByEmailAndSenha(usuario.getEmail(), usuario.getSenha());
             return user;
         }
 
         @PostMapping("save")
-        public User save(@RequestBody User user){
-            User createdUser = repository.save(user);
-            User returnUser = repository.findByEmailAndSenha(createdUser.getEmail(), createdUser.getSenha());
-            return returnUser; 
+        public User save(@RequestBody User usuario){
+            usuario.setSenha(Base64.getEncoder().encodeToString(usuario.getSenha().getBytes()));
+            User createdUser = repository.save(usuario);
+            // User returnUser = repository.findByEmailAndSenha(createdUser.getEmail(), createdUser.getSenha());
+            return createdUser; 
         }
 
-        @DeleteMapping("{id}")
-        public String delete(@PathVariable int id){
-            repository.deleteById(id);
-            return "Usuario com id " + id + " deletado."; 
+        @DeleteMapping("/delete")
+        public String delete(@RequestBody User usuario ){
+            usuario.setSenha(Base64.getEncoder().encodeToString(usuario.getSenha().getBytes()));
+            User user; 
+            user = repository.findByEmailAndSenha(usuario.getEmail(), usuario.getSenha());
+            repository.deleteById(user.getId());
+            return "Usuario deletado com sucesso."; 
         }
 
     
