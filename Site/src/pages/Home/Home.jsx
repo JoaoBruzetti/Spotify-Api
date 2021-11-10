@@ -64,7 +64,7 @@ function Home(){
         direction="column"
         alignItems="center"
         //justifyContent="center"
-        style={{ minHeight: '100vh' }}
+        style={{ minHeight: '1000px', width:'1000px' }}
       >
 
         <Typography variant="h3" align="center">Searchfy</Typography> <br/><br/>
@@ -98,11 +98,12 @@ function Home(){
         
             </Paper>
 
+            <div class="list-cards">
+
         { musicas && musicas.map(musica => (
               <div class="card">
-                
-              <p>{musica.name}</p>
-              <p>{musica.album.name}</p>
+
+              <p><bold>{musica.artists[0].name} - {musica.name} </bold></p>
 
               <a href={musica.external_urls.spotify} >
               <img 
@@ -111,9 +112,12 @@ function Home(){
               />
                </a>
                
+              <p><bold>Album:</bold> {musica.album.name}</p>
               </div>
 
             ))}
+            
+            </div>
         
     </Grid>
 
