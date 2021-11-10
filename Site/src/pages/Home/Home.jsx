@@ -68,7 +68,7 @@ function Home(){
 
       >
 
-        <div align="center" class="titulo">Searchfy</div> <br/><br/>
+        <h1>Searchfy</h1> <br/><br/>
         
 
         <Paper
@@ -109,10 +109,11 @@ function Home(){
                   src={musica.album.images[0].url}
                   width= '200rem'
                   />
-                  </a>
+                
                   <p><bold>{musica.artists[0].name} - {musica.name} </bold></p>
 
                   <p><bold>Album:</bold> {musica.album.name}</p>
+                  </a>
                   </div>
 
               ))}
