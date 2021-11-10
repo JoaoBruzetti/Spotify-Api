@@ -12,7 +12,7 @@ import Home from './pages/Home/Home';
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Container component="article" maxWidth="sm">
+      <Container component="article" >
         <Home />
       </Container>
     </ThemeProvider>

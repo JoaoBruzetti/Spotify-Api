@@ -63,11 +63,12 @@ function Home(){
         spacing={0}
         direction="column"
         alignItems="center"
-        //justifyContent="center"
-        style={{ minHeight: '1000px', width:'1000px' }}
+        justifyContent="center"
+        style={{ minHeight: '100vh' }}
+
       >
 
-        <Typography variant="h3" align="center">Searchfy</Typography> <br/><br/>
+        <div align="center" class="titulo">Searchfy</div> <br/><br/>
         
 
         <Paper
@@ -93,32 +94,31 @@ function Home(){
               aria-label="search">
               <SearchIcon />
             </IconButton>
-            <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
 
         
             </Paper>
 
-            <div class="list-cards">
+            <div class="cards">
 
-        { musicas && musicas.map(musica => (
-              <div class="card">
+              { musicas && musicas.map(musica => (
+                  <div class="card">
 
-              <p><bold>{musica.artists[0].name} - {musica.name} </bold></p>
+                 
+                  <a href={musica.external_urls.spotify} target="_blank">
+                  <img 
+                  src={musica.album.images[0].url}
+                  width= '200rem'
+                  />
+                  </a>
+                  <p><bold>{musica.artists[0].name} - {musica.name} </bold></p>
 
-              <a href={musica.external_urls.spotify} >
-              <img 
-              src={musica.album.images[0].url}
-              width= '200rem'
-              />
-               </a>
-               
-              <p><bold>Album:</bold> {musica.album.name}</p>
-              </div>
+                  <p><bold>Album:</bold> {musica.album.name}</p>
+                  </div>
 
-            ))}
+              ))}
             
-            </div>
-        
+          </div>
+
     </Grid>
 
     )
