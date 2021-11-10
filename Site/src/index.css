@@ -14,10 +14,23 @@ code {
     monospace;
 }
 
+.list-card{
+  display: inline-block;
+}
+
 .card {
   background-color: darkblue;
-  width: 75%;
   margin-top: 5%;
+  margin-right: 5%;
+  margin-left: 5%;
   margin-bottom: 5%;
-  text-align: center;
+  display: inline-block;
+}
+
+img{
+  margin-bottom: 5%;
+}
+
+bold{
+  font-weight: bold;
 }
