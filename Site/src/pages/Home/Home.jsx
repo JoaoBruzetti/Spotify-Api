@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from "@material-ui/core/styles";
-import { Container, Box, Typography, Grid } from '@material-ui/core';
-import api from '../../services/api';
-import {Link} from 'react-router-dom';
+import {  Grid } from '@material-ui/core';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import { AiFillSetting } from "react-icons/ai";
+import {useAuth} from "../../contexts/auth"
+import api from '../../services/api';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
 function Home(){
 
     const [token, setToken] = useState('');  
@@ -29,6 +27,7 @@ function Home(){
     const client_secret = '3c635278395d46fe89d747c0a160d68b';
     const [pesquisa, setPesquisa] = useState ("");
     const [musicas, setMusicas] = useState([]);
+    const {user, setUser, email, senha} = useAuth()
 
     function Pesquisa(){
       axios('https://accounts.spotify.com/api/token', {
@@ -42,7 +41,7 @@ function Home(){
       .then(tokenResponse => {      
         setToken(tokenResponse.data.access_token);
   
-        axios(`https://api.spotify.com/v1/search?q=${pesquisa.replace(' ', '+')}&type=track&limit=10`, {
+        axios(`https://api.spotify.com/v1/search?q=${pesquisa.replace(' ', '+')}&type=track&limit=24`, {
           method: 'GET',
           headers: { 
               'Authorization' : 'Bearer ' + tokenResponse.data.access_token,
@@ -51,11 +50,24 @@ function Home(){
         })
         .then ( response => {        
           setMusicas(response.data.tracks.items)
-          console.log(response.data.tracks.items)
 
         });
       });
     }
+
+    async function deleteUser(){
+      await api.post('users/delete', {
+        email, senha
+      })
+      .then(result => {
+        if(result.data != ""){
+         setUser(null)
+        } 
+      })
+      .catch(erro => console.log(erro))
+    }
+    
+    console.log(email, senha)
 
     return (
       <Grid
@@ -63,13 +75,21 @@ function Home(){
         spacing={0}
         direction="column"
         alignItems="center"
-        justifyContent="center"
         style={{ minHeight: '100vh' }}
-
+        xs={12}
       >
+  
+        <div class="dropdown">
+          <AiFillSetting size="5%" class="mainmenubtn"/>
+          <div class="dropdown-child">
+            <p onClick={() => setUser(null)}>Sair</p>
+            <p onClick={() => deleteUser()} >Excluir Conta</p>
+          </div>
+        </div>
 
-        <h1>Searchfy</h1> <br/><br/>
-        
+        <div class="cima">
+        <h1>Searchfy</h1>
+        </div>
 
         <Paper
             component="form"

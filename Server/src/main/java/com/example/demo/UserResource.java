@@ -46,7 +46,7 @@ public class UserResource {
             return createdUser; 
         }
 
-        @DeleteMapping("/delete")
+        @PostMapping("/delete")
         public String delete(@RequestBody User usuario ){
             usuario.setSenha(Base64.getEncoder().encodeToString(usuario.getSenha().getBytes()));
             User user; 

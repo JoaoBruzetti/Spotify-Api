@@ -26,14 +26,19 @@ function RegisterForm(){
     const [senha, setSenha] = useState ("");
  
     async function handleSubmit(){
-      await api.post('users/save', {
-        nome: nome,
-        email: email,
-        telefone: telefone,
-        senha: senha
-      })
-      .then(result => console.log(result))
-      .catch(erro => console.log(erro))
+      if(email.includes("@")){
+        await api.post('users/save', {
+          nome: nome,
+          email: email,
+          telefone: telefone,
+          senha: senha
+        })
+        .then(result => console.log(result))
+        .catch(erro => console.log(erro))
+      }
+      else{
+        alert("Email inválido.")
+      }
     }
 
     return (
@@ -46,7 +51,7 @@ function RegisterForm(){
         style={{ minHeight: '100vh' }}
       >
 
-        <Typography variant="h3" align="center">Crie sua Conta</Typography> <br/><br/>
+          <h1>Searchfy</h1> <br/><br/>
           <form > 
 
             <TextField 
@@ -83,6 +88,7 @@ function RegisterForm(){
               label="Telefone" 
               variant="filled" 
               margin="normal" 
+              type="number"
               fullWidth/>
 
             <TextField 

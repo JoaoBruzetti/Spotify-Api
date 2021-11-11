@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Container, Box, Typography, Grid } from '@material-ui/core';
 import api from '../../services/api';
 import {Link} from 'react-router-dom';
-
+import { useAuth } from '../../contexts/auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,17 +15,23 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
 function LoginForm(){
     const classes = useStyles();
-    const [email, setEmail] = useState ("");
-    const [senha, setSenha] = useState ("");
+    const {setUser, setEmail, setSenha, email, senha} = useAuth()
 
     async function handleLogin(){
       await api.post('users/access', {
         email: email,
         senha: senha
       })
-      .then(result => console.log(result))
+      .then(result => {
+        if(result.data != ""){
+         setUser(result.data)
+        } else {
+          alert("Usuário ou senha inválido")
+        }
+      })
       .catch(erro => console.log(erro))
     }
 
@@ -38,7 +44,7 @@ function LoginForm(){
         justifyContent="center"
         style={{ minHeight: '100vh' }}
       >
-        <Typography variant="h3" align="center">Searchfy</Typography> <br/><br/>
+        <h1>Searchfy</h1><br/><br/>
           <form> 
             <TextField 
               value={email}

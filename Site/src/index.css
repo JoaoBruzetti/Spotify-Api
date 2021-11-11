@@ -14,6 +14,12 @@ code {
     monospace;
 }
 
+.cima {
+  display: flex;
+  margin-bottom: 5%;
+  justify-content: center;
+}
+
 .cards {
   display: flex;
   flex-wrap: wrap;
@@ -38,10 +44,13 @@ code {
   padding-bottom: 1%;
   font-family: 'Monospace';
   color: black;
+  border: 1px solid #ddd;
+
 }
 
 .card:hover {
   transform: scale(1.2); 
+  transition: all ease-out 0.25s;
 }
 
 img{
@@ -59,7 +68,40 @@ h1 {
   color: #1aaf79;
 }
 
-footer{
-  width: 100%;
-  background-color: #1aaf79;
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
+
+
+.mainmenubtn {
+  cursor: pointer;
+}
+.mainmenubtn:hover {
+  transform: scale(1.05);
+  transition: all ease-out 0.25s;
+  }
+.dropdown {
+  display: flex;
+  justify-content: end;
+  width: 95%;
+  margin-top: 2%;
+}
+.dropdown-child {
+  display: none;
+  min-width: 200px;
+  position: fixed;
+}
+.dropdown-child p {
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+.dropdown:hover .dropdown-child {
+  display: block;
+}
+
+
